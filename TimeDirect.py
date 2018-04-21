@@ -28,17 +28,20 @@ def kusok():
 
 
 def datesravn(now,times,dannye,Mes,us):
-    if now.month > Mes[times['month']] and times['do'] == False:
-        kusok()
-    elif now.month == Mes[times['month']]and times['do'] == False:
-        if now.day > int(times['day'])and times['do'] == False:
+    try:
+        if now.month > Mes[times['month']] and times['do'] == False:
             kusok()
-        elif now.day == int(times['day']):
-            if now.hour > int(dannye[us]['set'][0])and times['do'] == False:
+        elif now.month == Mes[times['month']]and times['do'] == False:
+            if now.day > int(times['day'])and times['do'] == False:
                 kusok()
-            elif now.hour == int(times['day'])and times['do'] == False:
-                if now.minute >= int(dannye[us]['set'][1])and times['do'] == False:
+            elif now.day == int(times['day']):
+                if now.hour > int(dannye[us]['set'][0])and times['do'] == False:
                     kusok()
+                elif now.hour == int(times['day'])and times['do'] == False:
+                    if now.minute >= int(dannye[us]['set'][1])and times['do'] == False:
+                        kusok()
+    except KeyError:
+        bot.send_message(int(us),'Ошибка структуры данных')
 
 while True:
     now = datetime.datetime.now()
